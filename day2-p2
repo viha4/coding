@@ -1,65 +1,47 @@
+package Tuesday;
+
 import java.util.Stack;
 
-// Data Structure to store a linked list node
-class Node {
-	int data;
-	Node next;
+public class LinkedListPalindromeUsingStack {
 
-	Node(int i)
-	{
-		this.data = i;
-		this.next = null;
-	}
-};
+   public static void main(String[] a){
 
-class Main
-{
-	// Function to determine if a given linked list is palindrome or not
-	public static boolean isPalindrome(Node head)
-	{
-		// construct an empty stack
-		Stack<Integer> s = new Stack<>();
+       Node n1 = new Node(10);
+       Node n2 = new Node(28);
+       Node n3 = new Node(15);
+       Node n4 = new Node(28);
+       Node n5 = new Node(10);
+       n1.next = n2;
+       n2.next = n3;
+       n3.next = n4;
+       n4.next = n5;
+       boolean result = isPalindrome(n1);
+       System.out.println("Is it palindrome: "+result);
+   }
 
-		// push all elements of the linked list into the stack
-		Node node = head;
-		while (node != null) {
-			s.push(node.data);
-			node = node.next;
-		}
+   static class Node {
+       int data;
+       Node next;
+       Node(int tmp) {
+           data = tmp;
+       }
+   }
 
-		// traverse the linked list again
-		node = head;
-		while (node != null)
-		{
-			// pop the top element from the stack
-			int top = s.pop();
+   static boolean isPalindrome(Node head) {
 
-			// compare the popped element with current node's data
-			// return false if mismatch happens
-			if (top != node.data) {
-				return false;
-			}
+       Node tempNode = head;
+       Stack<Integer> stack = new Stack<Integer>();
+       while(tempNode != null) {
+           stack.push(tempNode.data);
+           tempNode = tempNode.next;
+       }
+       while(head != null) {
+           if(head.data != stack.pop()) {
+               return Boolean.FALSE;
+           }
+           head = head.next;
+       }
 
-			// advance to the next node
-			node = node.next;
-		}
-
-		// we reach here only when the linked list is palindrome
-		return true;
-	}
-
-	public static void main(String[] args)
-	{
-		Node head = new Node(1);
-		head.next = new Node(2);
-		head.next.next = new Node(3);
-		head.next.next.next = new Node(2);
-		head.next.next.next.next = new Node(1);
-
-		if (isPalindrome(head)) {
-			System.out.print("Linked List is a palindrome.");
-		} else {
-			System.out.print("Linked List is not a palindrome.");
-		}
-	}
+       return Boolean.TRUE;
+   }
 }
